@@ -1,0 +1,30 @@
+<div class="header">
+  <div class="header__table table">
+    <p class="table__title">Currency</p>
+    <p class="table__title">Sell</p>
+    <p class="table__title">Buy</p>
+    <p class="table__item table__item_first">USD</p>
+
+    <p class="table__item">
+      <span *ngIf="!loading">
+        {{rates.usdSale | number: '2.2'}}
+      </span>
+    </p>
+    <p class="table__item">
+      <span *ngIf="!loading">
+        {{rates.usdBuy | number: '2.2'}}
+      </span>
+    </p>
+    <p class="table__item table__item_first">EUR</p>
+    <p class="table__item">
+      <span *ngIf="!loading">
+        {{rates.eurSale | number: '2.2'}}
+      </span>
+    </p>
+    <p class="table__item">
+      <span *ngIf="!loading">
+        {{rates.eurBuy | number: '2.2'}}
+      </span>
+    </p>
+  </div>
+</div>

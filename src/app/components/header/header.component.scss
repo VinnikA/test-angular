@@ -1,0 +1,31 @@
+@import '../../../variables.scss';
+.header {
+  padding: 16px;
+}
+.table {
+  width: 340px;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px $secondary-dark, -2px -4px 8px $secondary-light;
+  &__title {
+    text-align: center;
+    font-weight: 700;
+    padding: 4px;
+    background-color: $primary-dark;
+    color: $secondary;
+  }
+  &__item {
+    text-align: center;
+    padding: 4px;
+    background-color: $secondary-light;
+    color: $primary-dark;
+    &_first {
+      background-color: $primary;
+      color: $secondary;
+      font-weight: 700;
+    }
+  }
+}
