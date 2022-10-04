@@ -1,67 +1,73 @@
-import { Component, Input } from '@angular/core';
-import { Rates } from 'src/app/models/currency';
+import { Component, Input, OnChanges } from '@angular/core';
+import { Currency } from 'src/app/models/currency';
 
 @Component({
   selector: 'app-convertor',
   templateUrl: './convertor.component.html',
   styleUrls: ['./convertor.component.scss']
 })
-export class ConvertorComponent {
+export class ConvertorComponent implements OnChanges{
 
   firstSelect = 'USD';
   secondSelect = 'UAH';
+  
   firstInput = 0;
   secondInput = 0;
-  @Input() rates: Rates;
   @Input() loading: boolean;
+  @Input() data: Currency[];
+  currency: string[];
+
+  private newValue = (value: number, fK?: string, sK?: string) => {
+    if(fK && !sK) {
+      return Math.round(value*Number(fK)*100)/100;
+    }
+    if(!fK && sK) {
+      return Math.round(value/Number(sK)*100)/100;
+    }
+    if(fK && sK) {
+      return Math.round(value*Number(fK)/Number(sK)*100)/100;
+    }
+    return value;
+  }
+
+  ngOnChanges() {
+    this.currency = this.data.map(item => item.ccy);
+    this.currency.push('UAH');
+  }
 
    firstChange = () => {
-    const newValue = (k: number) => Math.round(this.firstInput*k*100)/100;
-    if(this.firstSelect === 'USD' && this.secondSelect === 'UAH') {
-      this.secondInput = newValue(Number(this.rates.usdBuy));
-    }
-    if(this.firstSelect === 'EUR' && this.secondSelect === 'UAH') {
-      this.secondInput = newValue(Number(this.rates.eurBuy));
-    }
-    if(this.firstSelect === 'UAH' && this.secondSelect === 'USD') {
-      this.secondInput = newValue(1/Number(this.rates.usdSale));
-    }
-    if(this.firstSelect === 'UAH' && this.secondSelect === 'EUR') {
-      this.secondInput = newValue(1/Number(this.rates.eurSale));
-    }
-    if(this.firstSelect === 'USD' && this.secondSelect === 'EUR') {
-      this.secondInput = newValue(Number(this.rates.usdBuy)/Number(this.rates.eurBuy));
-    }
-    if(this.firstSelect === 'EUR' && this.secondSelect === 'USD') {
-      this.secondInput = newValue(Number(this.rates.eurBuy)/Number(this.rates.usdBuy));
-    }
     if(this.firstSelect === this.secondSelect) {
-      this.secondInput = this.firstInput;
+      this.secondInput = this.firstInput
+    } else{
+      const firstCurr = this.data.find(item => item.ccy === this.firstSelect);
+      const secondCurr = this.data.find(item => item.ccy === this.secondSelect);
+      if(firstCurr && !secondCurr) {
+        this.secondInput = this.newValue(this.firstInput, firstCurr.buy)
+      }
+      if(!firstCurr && secondCurr) {
+        this.secondInput = this.newValue(this.firstInput, '', secondCurr?.sale);
+      }
+      if(firstCurr && secondCurr) {
+        this.secondInput = this.newValue(this.firstInput, firstCurr?.buy, secondCurr?.buy);
+      }
     }
   }
 
   secondChange = () => {
-    const newValue = (k: number) => Math.round(this.secondInput*k*100)/100;
-    if(this.firstSelect === 'USD' && this.secondSelect === 'UAH') {
-      this.firstInput  = newValue(1/Number(this.rates.usdBuy));
-    }
-    if(this.firstSelect === 'EUR' && this.secondSelect === 'UAH') {
-      this.firstInput  = newValue(1/Number(this.rates.eurBuy));
-    }
-    if(this.firstSelect === 'UAH' && this.secondSelect === 'USD') {
-      this.firstInput  = newValue(Number(this.rates.usdSale));
-    }
-    if(this.firstSelect === 'UAH' && this.secondSelect === 'EUR') {
-      this.firstInput  = newValue(Number(this.rates.eurSale));
-    }
-    if(this.firstSelect === 'USD' && this.secondSelect === 'EUR') {
-      this.firstInput  = newValue(Number(this.rates.eurBuy)/Number(this.rates.usdBuy));
-    }
-    if(this.firstSelect === 'EUR' && this.secondSelect === 'USD') {
-      this.firstInput  = newValue(Number(this.rates.usdBuy)/Number(this.rates.eurBuy));
-    }
     if(this.firstSelect === this.secondSelect) {
-      this.firstInput = this.secondInput;
+      this.firstInput = this.secondInput
+    } else{
+      const firstCurr = this.data.find(item => item.ccy === this.firstSelect);
+      const secondCurr = this.data.find(item => item.ccy === this.secondSelect);
+      if(firstCurr && !secondCurr) {
+        this.firstInput = this.newValue(this.secondInput, '', firstCurr?.buy);
+      }
+      if(!firstCurr && secondCurr) {
+        this.firstInput = this.newValue(this.secondInput, secondCurr?.sale);
+      }
+      if(firstCurr && secondCurr) {
+        this.firstInput = this.newValue(this.secondInput, secondCurr?.buy, firstCurr?.buy);
+      }
     }
   }
 

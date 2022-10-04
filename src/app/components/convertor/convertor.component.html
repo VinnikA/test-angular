@@ -6,9 +6,7 @@
       [(ngModel)]='firstSelect'
       (ngModelChange)="firstChange()"
     >
-      <option value="UAH">UAH</option>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
+      <option *ngFor="let c of currency" value={{c}}>{{c}}</option>
     </select>
     <input 
       type="number" 
@@ -27,9 +25,7 @@
       [(ngModel)]='secondSelect' 
       (ngModelChange)='secondChange()'
     >
-      <option value="UAH">UAH</option>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
+      <option *ngFor="let c of currency" value={{c}}>{{c}}</option>
     </select>
     <input 
       type="number" 
