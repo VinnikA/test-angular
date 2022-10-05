@@ -14,7 +14,7 @@ export class CurrencyService {
     ) { }
 
   getRate(): Observable<Currency[]> {
-    return this.http.get<Currency[]>('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+    return this.http.get<Currency[]>('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
       .pipe(
         catchError(this.errorHandler.bind(this))
       )

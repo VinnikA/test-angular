@@ -1,13 +1,12 @@
 export type Currency = {
-  ccy: string,
-  base_ccy: string,
-  buy: string,
-  sale: string
+  r030: number,
+  txt: string,
+  rate: number,
+  cc: string,
+  exchangedate: string
 };
 
 export type Rates  = {
-  usdSale: string,
-  usdBuy: string,
-  eurSale: string,
-  eurBuy: string
+  usd: number,
+  eur: number
 }
