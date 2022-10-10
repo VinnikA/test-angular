@@ -1,31 +1,44 @@
 @import '../../../variables.scss';
 .header {
   padding: 16px;
+  overflow: hidden;
+  &__table {
+    width: 400px;
+  }
 }
 .table {
-  width: 340px;
-  display: grid;
-  gap: 4px;
-  grid-template-columns: repeat(3, 1fr);
   padding: 16px;
   border-radius: 4px;
   box-shadow: 4px 4px 8px $secondary-dark, -2px -4px 8px $secondary-light;
+  height: 90%;
+  &__header {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: 3fr 1fr;
+    margin: 0 0 4px 0;
+  }
   &__title {
-    text-align: center;
+    padding: 4px 8px;
     font-weight: 700;
-    padding: 4px;
-    background-color: $primary-dark;
+    background-color: $primary;
     color: $secondary;
   }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
   &__item {
-    text-align: center;
-    padding: 4px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 4px;
+  }
+  &__text, &__rate {
+    padding: 4px 8px;
     background-color: $secondary-light;
     color: $primary-dark;
-    &_first {
-      background-color: $primary;
-      color: $secondary;
-      font-weight: 700;
-    }
+  }
+  &__rate {
+    text-align: center;
   }
 }

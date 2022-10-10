@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Rates } from 'src/app/models/currency';
+import { Currency } from 'src/app/models/currency';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { Rates } from 'src/app/models/currency';
 })
 export class HeaderComponent {
 
-  @Input() rates: Rates;
+  @Input() data: Currency[];
   @Input() loading: boolean;
 
 }

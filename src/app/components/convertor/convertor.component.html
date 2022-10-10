@@ -1,41 +1,43 @@
 <div class="convertor">
-  <div class="convertor__item">
-    <select 
-      name="first" 
-      class="convertor__select" 
-      [(ngModel)]='firstSelect'
-      (ngModelChange)="firstChange()"
-    >
-      <option *ngFor="let c of currency" value={{c}}>{{c}}</option>
-    </select>
-    <input 
-      type="number" 
-      min="0" 
-      class="convertor__input" 
-      placeholder="0"
-      [(ngModel)]='firstInput' 
-      (ngModelChange)='firstChange()' 
-      disabled={{loading}}
-    >
+  <div class="convertor__form">
+    <div class="convertor__item">
+      <select 
+        name="first" 
+        class="convertor__select" 
+        [(ngModel)]='firstSelect'
+        (ngModelChange)="firstChange()"
+      >
+        <option *ngFor="let c of currency" value={{c}}>{{c}}</option>
+      </select>
+      <input 
+        type="number" 
+        min="0" 
+        class="convertor__input" 
+        placeholder="0"
+        [(ngModel)]='firstInput' 
+        (ngModelChange)='firstChange()' 
+        disabled={{loading}}
+      >
+    </div>
+    <div class="convertor__item">
+      <select 
+        name="first" 
+        class="convertor__select" 
+        [(ngModel)]='secondSelect' 
+        (ngModelChange)='secondChange()'
+      >
+        <option *ngFor="let c of currency" value={{c}}>{{c}}</option>
+      </select>
+      <input 
+        type="number" 
+        min="0" 
+        class="convertor__input" 
+        placeholder="0"
+        [(ngModel)]='secondInput' 
+        (ngModelChange)='secondChange()' 
+        disabled={{loading}}
+      >
+    </div>
   </div>
-  <div class="convertor__item">
-    <select 
-      name="first" 
-      class="convertor__select" 
-      [(ngModel)]='secondSelect' 
-      (ngModelChange)='secondChange()'
-    >
-      <option *ngFor="let c of currency" value={{c}}>{{c}}</option>
-    </select>
-    <input 
-      type="number" 
-      min="0" 
-      class="convertor__input" 
-      placeholder="0"
-      [(ngModel)]='secondInput' 
-      (ngModelChange)='secondChange()' 
-      disabled={{loading}}
-    >
-  </div>
-</div>
 
+</div>
